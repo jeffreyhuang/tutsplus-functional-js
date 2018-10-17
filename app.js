@@ -6,15 +6,27 @@ var filters = document.getElementById("filters");
 var filterLinks = filters.querySelectorAll("a");
 
 function loadBeers(beers) {
-  beerList.innerHTML = _.template(beerTemplate)({ beers: beers});
+  beerList.innerHTML = _.template(beerTemplate)({ beers: beers });
 }
 
 function setActiveFilter(active) {
-  for (i=0; i<filterLinks.length; i++) {
+  for (i = 0; i < filterLinks.length; i++) {
     filterLinks[i].classList.remove('btn-active');
   }
 
   active.classList.add('btn-active');
+}
+
+function filterBeers(property, value) {
+  var filteredBeers = [];
+
+  for (i = 0; i < beers.length; i++) {
+    if (beers[i][property] === value) {
+      filteredBeers.push(beers[i]);
+    }
+  }
+
+  return filteredBeers;
 }
 
 loadBeers(beers);
@@ -33,35 +45,27 @@ filters.addEventListener('click', function (e) {
       filteredBeers = beers;
       break;
     case 'domestic':
-      for (i=0; i<beers.length; i++) {
-        if (beers[i].locale === 'domestic') {
-          filteredBeers.push(beers[i]);
-        }
-      }
+      filteredBeers = filterBeers('locale', 'domestic');
       break;
     case 'imports':
-      for (i=0; i<beers.length; i++) {
-        if (beers[i].locale === 'import') {
-          filteredBeers.push(beers[i]);
-        }
-      }
+      filteredBeers = filterBeers('locale', 'import');
       break;
     case 'ale':
-      for (i=0; i<beers.length; i++) {
+      for (i = 0; i < beers.length; i++) {
         if (beers[i].type === 'ipa' || beers[i].type === 'ale') {
           filteredBeers.push(beers[i]);
         }
       }
       break;
     case 'lager':
-      for (i=0; i<beers.length; i++) {
+      for (i = 0; i < beers.length; i++) {
         if (beers[i].type === 'lager') {
           filteredBeers.push(beers[i]);
         }
       }
       break;
     case 'stout':
-      for (i=0; i<beers.length; i++) {
+      for (i = 0; i < beers.length; i++) {
         if (beers[i].type === 'stout') {
           filteredBeers.push(beers[i]);
         }
