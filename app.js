@@ -29,6 +29,15 @@ function filterBeers(property, value) {
   return filteredBeers;
 }
 
+function makeFilter(property) {
+  return function (value) {
+    return filterBeers(property, value);
+  }
+}
+
+var filterByLocale = makeFilter('locale');
+var filterByType = makeFilter('type');
+
 function compareValues(item, property, value) {
   if (!Array.isArray(value)) {
     return item[property] === value;
@@ -54,26 +63,26 @@ filters.addEventListener('click', function (e) {
 
   setActiveFilter(clicked);
 
-  switch (filter) {
-    case 'all':
-      filteredBeers = beers;
-      break;
-    case 'domestic':
-      filteredBeers = filterBeers('locale', 'domestic');
-      break;
-    case 'imports':
-      filteredBeers = filterBeers('locale', 'import');
-      break;
-    case 'ale':
-      filteredBeers = filterBeers('type', ['ipa', 'ale']);
-      break;
-    case 'lager':
-      filteredBeers = filterBeers('type', 'lager');
-      break;
-    case 'stout':
-      filteredBeers = filterBeers('type', 'stout');
-      break;
-  }
+switch (filter) {
+  case 'all':
+    filteredBeers = beers;
+    break;
+  case 'domestic':
+    filteredBeers = filterByLocale('domestic');
+    break;
+  case 'imports':
+    filteredBeers = filterByLocale('import');
+    break;
+  case 'ale':
+    filteredBeers = filterByType(['ipa', 'ale']);
+    break;
+  case 'lager':
+    filteredBeers = filterByType('lager');
+    break;
+  case 'stout':
+    filteredBeers = filterByType('stout');
+    break;
+}
 
   loadBeers(filteredBeers);
 });
