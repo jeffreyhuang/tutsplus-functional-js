@@ -8,7 +8,7 @@ var filterLinks = filters.querySelectorAll("a");
 
 function loadBeers(beers) {
   beerList.innerHTML = _.template(beerTemplate)({ beers: beers });
-  averageAbv.innerHTML = getAverageAbv(beers);
+  averageAbv.innerHTML = 'Average ABV: ' + getAverageAbv(beers) + '%';
 }
 
 function setActiveFilter(active) {
@@ -59,16 +59,18 @@ function reduce(collection, callback, initial) {
   return last;
 }
 
+function add(a, b) {
+  return a + b;
+}
+
 function getAverageAbv(beers) {
   var abvs = map(beers, function (beer) {
     return beer.abv;
   });
 
-  var total = reduce(abvs, function (a, b) {
-    return a + b;
-  }, 0);
+  var total = reduce(abvs, add, 0);
 
-  return total;
+  return Math.round((total / beers.length) * 10) / 10;
 }
 
 var filterByLocale = makeFilter(allBeers, 'locale');
