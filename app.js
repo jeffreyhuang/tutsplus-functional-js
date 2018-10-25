@@ -44,8 +44,28 @@ fp.add = function (a, b) {
   return a + b;
 };
 
+fp.groupBy = function (collection, callback) {
+  var grouped = {};
+  var groupName;
+
+  for (var i = 0; i < collection.length; i++) {
+    groupName = callback(collection[i]);
+
+    if (!grouped[groupName]) {
+      grouped[groupName] = [];
+    }
+    grouped[groupName].push(collection[i]);
+  }
+
+  return grouped;
+};
+
 function loadBeers(beers) {
-  beerList.innerHTML = _.template(beerTemplate)({ beers: beers });
+  var beerGroups = fp.groupBy(beers, function (beer) {
+    return beer.locale;
+  });
+
+  beerList.innerHTML = _.template(beerTemplate)({ beers: beerGroups });
   averageAbv.innerHTML = 'Average ABV: ' + getAverageAbv(beers) + '%';
 }
 
@@ -70,7 +90,7 @@ function getAverageAbv(beers) {
     return beer.abv;
   });
 
-  var total = fp.reduce(abvs, add, 0);
+  var total = fp.reduce(abvs, fp.add, 0);
 
   return Math.round((total / beers.length) * 10) / 10;
 }

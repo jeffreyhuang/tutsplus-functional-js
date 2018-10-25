@@ -57,3 +57,10 @@ a.header-logo {
   font-size: 0.75em;
   color: #bbb;
 }
+
+h3 {
+  color: #000;
+  background-color: #999;
+  padding: 8px 0;
+  opacity: 0.65;
+}
