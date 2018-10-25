@@ -1,6 +1,6 @@
 var beerData = JSON.parse(document.getElementById("beerData").textContent);
 var allBeers = beerData.beers;
-var beerTemplate = document.getElementById("tmpl-beer").textContent;
+var beerTemplate = document.getElementById("tmpl-beer-groups").textContent;
 var beerList = document.getElementById("beerList");
 var averageAbv = document.getElementById("averageAbv");
 var filters = document.getElementById("filters");
@@ -38,11 +38,11 @@ fp.reduce = function (collection, callback, initial) {
   }
 
   return last;
-}
+};
 
 fp.add = function (a, b) {
   return a + b;
-}
+};
 
 function loadBeers(beers) {
   beerList.innerHTML = _.template(beerTemplate)({ beers: beers });
