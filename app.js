@@ -1,6 +1,6 @@
 var beerData = JSON.parse(document.getElementById("beerData").textContent);
 var allBeers = beerData.beers;
-var beerTemplate = document.getElementById("tmpl-beer").textContent;
+var beerTemplate = document.getElementById("tmpl-beer-groups").textContent;
 var beerList = document.getElementById("beerList");
 var averageAbv = document.getElementById("averageAbv");
 var filters = document.getElementById("filters");
