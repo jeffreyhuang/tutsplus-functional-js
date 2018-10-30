@@ -1,2 +1,2 @@
-# tut-functional-js
-Functional JS tutorial project code for tutsplus.com
+# Functional Programming in JavaScript
+Coding practice on JavaScript functional programming tutorial project by Jason Rhodes on Envato Tuts+
